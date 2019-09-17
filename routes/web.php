@@ -44,3 +44,7 @@ Route::post('/songs/store', 'Song\SongController@store')->name('songs.store');
 Route::get('/songs/{song}', 'Song\SongController@show')->name('songs.show');
 // Route::get('/bands/{song}/edit', 'Song\SongController@edit')->name('songs.edit');
 Route::put('/songs/{song}/edit', 'Song\SongController@update')->name('songs.update');
+
+Route::get('/edit/{song}', 'Song\SongController@edit')->name('songs.edit');
+Route::put('/edit/{song}', 'Song\SongController@update')->name('songs.update');
+Route::get('/{band}/{song}', 'Song\SongController@show')->name('songs.show');

@@ -7,6 +7,7 @@ use App\Band;
 use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Song;
 
 class SongController extends Controller
 {
@@ -18,7 +19,7 @@ class SongController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     public function index()
@@ -67,9 +68,9 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Band $band, Song $song)
     {
-        //
+        return view('songs.show', compact('song'));
     }
 
     /**
@@ -78,9 +79,11 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Song $song)
     {
-        //
+        $bands = Band::latest()->get();
+        $albums = Album::latest()->get();
+        return view('songs.edit', compact('song', 'bands', 'albums'));
     }
 
     /**
@@ -90,9 +93,27 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Song $song)
     {
-        //
+        request()->validate([
+            'title' => 'required|min:2',
+            'lyric' => 'required',
+
+        ]);
+
+        // $band = Band::find(request('band'));
+        // $attributes['slug'] = str_slug(\request('title')) . "-" . str_random(3);
+        // $attributes['album_id'] = \request('album');
+
+        $song->update([
+            'title' => request('title'),
+            'lyric' => request('lyric'),
+            'album_id' => \request('album'),
+            'band_id' => \request('band'),
+            'slug' => str_slug(\request('title')) . "-" . str_random(3)
+        ]);
+
+        return redirect()->route('songs.show', [$song->band, $song]);
     }
 
     /**
