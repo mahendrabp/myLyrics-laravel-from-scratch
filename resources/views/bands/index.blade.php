@@ -4,11 +4,14 @@
 <div class="container">
     <div class="row">
         @foreach ($bands as $band)
-        <div class="col-md-4">
-            <div class="card">
-                <img src="{{url('storage/'. $band->poster)}}" alt="" class="card-img-top">
+        <div class="col-md-3">
+            <div class="card shadow-lg">
+
+                <a href="{{route('bands.show',$band)}}"><img src="{{url('storage/'. $band->poster)}}" alt=""
+                        class="card-img-top"></a>
                 <div class="card-body">
-                    <a href="{{route('bands.show',$band)}}">{{$band->name}}</a>
+                    <h4 class="mb-0"><a href="{{route('bands.show',$band)}}">{{$band->name}}</a></h4>
+
                 </div>
 
                 <div class="card-footer">

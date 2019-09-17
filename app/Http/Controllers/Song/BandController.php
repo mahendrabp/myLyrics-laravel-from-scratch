@@ -6,6 +6,7 @@ use App\Band;
 use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class BandController extends Controller
 {
@@ -33,8 +34,9 @@ class BandController extends Controller
      */
     public function create()
     {
+        $bands = Band::latest()->paginate(10);
         $genres = Genre::latest()->get();
-        return \view('bands.create', compact('genres'));
+        return \view('bands.create', compact('genres', 'bands'));
     }
 
     /**
@@ -52,12 +54,12 @@ class BandController extends Controller
             'poster' => 'required'
         ]);
 
-        $slug = str_slug(request('name'));
+        // $slug = str_slug(request('name'));
         $poster = request()->file('poster')->store('poster');
 
         $band = Band::create([
             'name' => request('name'),
-            'slug' => $slug,
+            // 'slug' => $slug,
             'poster' => $poster
         ]);
 
@@ -73,6 +75,7 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
+
         return view('bands.show', compact('band'));
     }
 
@@ -82,9 +85,10 @@ class BandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Band $band)
     {
-        //
+        $genres = Genre::latest()->get();
+        return view('bands.edit', compact('band', 'genres'));
     }
 
     /**
@@ -94,9 +98,36 @@ class BandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Band $band)
     {
-        //
+        // request()->validate([
+        //     'name' => 'required|min:1',
+        //     // 'genres' => 'required',
+        //     'poster' => 'required'
+        // ]);
+
+        if (request('poster')) {
+            if ($band->poster) {
+                Storage::delete($band->poster);
+            }
+            $poster = request()->file('poster')->store('poster');
+        } else {
+            $poster = $band->poster;
+        }
+
+        $band->update([
+            'name' => request('name'),
+            'poster' => $poster,
+
+        ]);
+
+        if (request('genres')) {
+            $band->genres()->sync(request('genres', false));
+        } else {
+            $band->genres()->sync([]);
+        }
+        \session()->flash('success', 'your band was updated.');
+        return back();
     }
 
     /**

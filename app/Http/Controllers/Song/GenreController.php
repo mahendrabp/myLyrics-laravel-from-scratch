@@ -22,15 +22,12 @@ class GenreController extends Controller
 
     public function store()
     {
-        \request()->validate([
+        $attributes = \request()->validate([
             'name' => 'required|min:2',
             'slug' => 'unique',
         ]);
 
-        Genre::create([
-            'name' => \request('name'),
-            'slug' => str_slug(\request('name'))
-        ]);
+        Genre::create($attributes);
         return \back();
     }
 }

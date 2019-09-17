@@ -1,0 +1,21 @@
+.sidebar {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: $border-radius;
+
+    a {
+        display: block;
+        padding: 10px;
+        color: #555;
+
+        &:hover,
+        &:active {
+            background: #f9f9f9;
+            color: #212529;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #eee;
+        }
+    }
+}

@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <script src="/js/app.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,7 +28,12 @@
     <script src="/vendor/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-        $('#select-multiple').select2();
+        $('#select-2').select2();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+        $('.select-2').select2();
         });
     </script>
 </head>
@@ -37,9 +43,12 @@
         @include('layouts.partials.navigation')
 
         <main class="py-4">
+            <div class="container">@include('alert')</div>
+
             @yield('content')
         </main>
     </div>
+    @yield('script')
 </body>
 
 </html>

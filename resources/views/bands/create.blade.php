@@ -7,62 +7,44 @@
             @include('dashboard.partials.sidebar')
         </div>
         <div class="col-md-9">
-            <div class="card card-body mb-2">
-                <h3 class="card-title"> Create Band</h3>
+            <div class="card card-body mb-3">
+                <h3 class="card-title mb-4"> Create Band</h3>
 
                 <form action="{{route('bands.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-gorup">
-                        <input type="file" name="poster" id="poster">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name" class="control-label">Name</label>
-                        <input type="text" name="name" id="name"
-                            class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}">
-                        {!! $errors->first('name','<span class="invalid-feedback">:message</span>') !!}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="genres" class="control-label">Genre</label>
-                        <select name="genres[]" id="select-multiple" class="form-control" multiple>
-                            @foreach ($genres as $genre)
-                            <option value="{{$genre->id}}">{{$genre->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Create </button>
-                    </div>
+                    @include('bands.partials.form',[
+                    'submit' => 'Save'
+                    ])
 
                 </form>
             </div>
 
-            {{-- @if ($genres->count())
+            @if ($bands->count())
             <div class="card card-body">
-                <h3 class="card-title">All Genre</h3>
+                <h3 class="card-title">All Bands</h3>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($genres as $genre)
+                        @foreach ($bands as $band)
                         <tr>
-                            <td>{{$genre->name}}</td>
-            </tr>
-            @endforeach
+                            <td>{{$band->name}}</td>
+                            <td><a href="{{route('bands.edit',$band)}}">Edit</a></td>
+                        </tr>
+                        @endforeach
 
 
-            </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            @endif
+
         </div>
-        @endif --}}
-
     </div>
-</div>
 </div>
 @endsection
