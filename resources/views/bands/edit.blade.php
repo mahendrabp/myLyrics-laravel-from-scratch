@@ -28,7 +28,7 @@
 @section('script')
 <script>
     $(document).ready(function (event) { 
-        $('#select-multiple').val({!! json_encode($band->genres()->allRelatedIds()) !!}).trigger('change');
+        $('#select-2').val({!! json_encode($band->genres()->allRelatedIds()) !!}).trigger('change');
      });
 </script>
 @endsection

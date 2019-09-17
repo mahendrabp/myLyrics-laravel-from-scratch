@@ -54,6 +54,7 @@ class SongController extends Controller
         ]);
 
         $band = Band::find(request('band'));
+        $attributes['slug'] = str_slug(\request('title')) . "-" . str_random(3);
         $attributes['album_id'] = \request('album');
         $band->songs()->create($attributes);
 
