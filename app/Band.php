@@ -10,6 +10,11 @@ class Band extends Model
     use Sluggable;
     protected $guarded = [];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'band_genre');

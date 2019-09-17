@@ -24,6 +24,7 @@ class BandController extends Controller
     public function index()
     {
         $bands = Band::latest()->paginate(10);
+
         return \view('bands.index', compact('bands'));
     }
 
@@ -75,8 +76,9 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-
-        return view('bands.show', compact('band'));
+        // $bands = Band::class;
+        $albums = $band->albums()->latest()->get();
+        return view('bands.show', compact('band', 'albums'));
     }
 
     /**

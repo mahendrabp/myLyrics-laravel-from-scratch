@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Band;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $bands = Band::latest()->paginate(20);
+        return view('home', compact('bands'));
     }
 }
