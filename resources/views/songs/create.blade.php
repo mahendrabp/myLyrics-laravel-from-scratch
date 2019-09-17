@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         <label for="band" class="control-label">Band</label>
-                        <select name="band" id="select-2" class="form-control">
+                        <select name="band" id="select-2" class="form-control _band">
                             <option disabled selected>Pilih band</option>
                             @foreach ($bands as $band)
                             <option value="{{$band->id}}">{{$band->name}}</option>
@@ -31,11 +31,11 @@
 
                     <div class="form-group">
                         <label for="album" class="control-label">Album</label>
-                        <select name="album" id="" class="form-control select-2">
+                        <select name="album" id="album" class="form-control select-2">
                             <option disabled selected>Pilih Album</option>
-                            @foreach ($albums as $album)
+                            {{-- @foreach ($albums as $album)
                             <option value="{{$album->id}}">{{$album->name}}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
 
@@ -80,4 +80,19 @@
     </div>
 </div>
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () { 
+        $('._band').on('change',function(){
+            $('#album').html('');
+            $.get('/albums/all/' + this.value, function(data){
+                $('#album').append("<option selected disabled >Pilih Album</option>")
+                $.each(data, function(key,value){
+                    $('#album').append("<option value="+ value.id +">"+ value.name +"</option>")
+                })
+            });
+        });
+     });
+</script>
 @endsection

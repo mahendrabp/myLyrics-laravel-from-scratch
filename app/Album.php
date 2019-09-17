@@ -12,7 +12,7 @@ class Album extends Model
 
     public function band()
     {
-        return $this->belongsTo(Band::class, 'band_id');
+        return $this->belongsTo(Band::class);
     }
 
     public function songs()

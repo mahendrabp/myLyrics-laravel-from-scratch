@@ -22,9 +22,7 @@ class AlbumController extends Controller
     }
 
     public function index()
-    {
-        //
-    }
+    { }
 
     /**
      * Show the form for creating a new resource.
@@ -131,6 +129,12 @@ class AlbumController extends Controller
         \session()->flash('success', 'your band was updated.');
 
         return \back();
+    }
+
+    public function get_all_albums($band_id)
+    {
+        $band = Band::findOrFail($band_id);
+        return $band->albums;
     }
 
     /**

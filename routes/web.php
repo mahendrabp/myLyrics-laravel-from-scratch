@@ -36,6 +36,7 @@ Route::post('/albums/store', 'Song\AlbumController@store')->name('albums.store')
 Route::get('/albums/{album}', 'Song\AlbumController@show')->name('albums.show');
 // Route::get('/bands/{album}/edit', 'Song\AlbumController@edit')->name('albums.edit');
 Route::put('/albums/{album}/edit', 'Song\AlbumController@update')->name('albums.update');
+Route::get('/albums/all/{band_id}', 'Song\AlbumController@get_all_albums');
 
 
 Route::get('/songs', 'Song\SongController@index')->name('songs.index');

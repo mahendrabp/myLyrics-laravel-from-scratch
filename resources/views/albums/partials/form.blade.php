@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <label for="band" class="control-label">Band</label>
-    <select name="band" id="band" class="form-control">
+    <select name="band" id="select-2" class="form-control">
         <option disabled selected>Pilih band</option>
         @foreach ($bands as $band)
         <option {{ $band->id == $album->band_id ? 'selected' : ''}} value="{{$band->id}}">{{$band->name}}</option>
