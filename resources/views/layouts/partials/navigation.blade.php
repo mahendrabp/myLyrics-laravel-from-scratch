@@ -11,24 +11,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
                 @guest
-                <li class="nav-item">
+                @if (Auth::check())
+                <li class="nav-item"><a href="/dashboard" class="nav-link">Dashoard</a></li>
+                @endif
+
+                {{-- <li class="nav-item"><a href="/bands" class="nav-link">Bands</a></li> --}}
+
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
+                </li> --}}
                 @if (Route::has('register'))
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
+                </li> --}}
                 @endif
                 @else
-                <li class="nav-item"><a href="/dashboard" class="nav-link">Dashoard</a></li>
-                <li class="nav-item"><a href="/bands" class="nav-link">Bands</a></li>
+
+
 
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -48,6 +48,16 @@
                     </div>
                 </li>
                 @endguest
+            </ul>
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Authentication Links -->
+
+                @foreach (range('A','Z') as $alphabet)
+                <li class="nav-item"> <a class="nav-link" href="{{route('filters.show',$alphabet)}}"
+                        class="mr-2">{{$alphabet}}</a>
+                </li>
+                @endforeach
             </ul>
         </div>
     </div>

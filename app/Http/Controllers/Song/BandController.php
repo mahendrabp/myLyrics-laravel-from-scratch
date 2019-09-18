@@ -35,7 +35,7 @@ class BandController extends Controller
      */
     public function create()
     {
-        $bands = Band::latest()->paginate(10);
+        $bands = Band::latest()->paginate(5);
         $genres = Genre::latest()->get();
         return \view('bands.create', compact('genres', 'bands'));
     }
@@ -51,7 +51,7 @@ class BandController extends Controller
 
         request()->validate([
             'name' => 'required|min:1',
-            // 'genres' => 'required',
+            'genres' => 'required',
             'poster' => 'required'
         ]);
 
@@ -76,7 +76,7 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        // $bands = Band::class;
+        // $bands = Band::latest()->get();
         $albums = $band->albums()->latest()->get();
         return view('bands.show', compact('band', 'albums'));
     }

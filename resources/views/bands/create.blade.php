@@ -19,7 +19,7 @@
                 </form>
             </div>
 
-            @if ($bands->count())
+            {{-- @if ($bands->count())
             <div class="card card-body">
                 <h3 class="card-title">All Bands</h3>
                 <table class="table">
@@ -30,21 +30,19 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach ($bands as $band)
                         <tr>
                             <td>{{$band->name}}</td>
-                            <td><a href="{{route('bands.edit',$band)}}">Edit</a></td>
-                        </tr>
-                        @endforeach
-
-
-                    </tbody>
-                </table>
-            </div>
-            @endif
-
+            <td><a href="{{route('bands.edit',$band)}}">Edit</a></td>
+            </tr>
+            @endforeach
+            </tbody>
+            </table>
+            {{$bands->links()}}
         </div>
+        @endif --}}
+
     </div>
+</div>
 </div>
 @endsection

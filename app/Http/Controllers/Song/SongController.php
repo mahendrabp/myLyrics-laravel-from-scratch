@@ -51,7 +51,8 @@ class SongController extends Controller
         $attributes = request()->validate([
             'title' => 'required|min:2',
             'lyric' => 'required',
-            // 'slug' => 'required'
+            'band' => 'required',
+            'album' => 'required',
         ]);
 
         $band = Band::find(request('band'));

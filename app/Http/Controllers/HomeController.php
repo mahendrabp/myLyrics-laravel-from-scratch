@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
 
     /**
@@ -25,12 +25,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-        $bands = Band::paginate(20);
+        $bands = Band::paginate(12);
         $filterKeyword = $request->get('keyword');
-        // if ($filterKeyword) {
 
-        $bands = \App\Band::where('name', 'LIKE', "%$filterKeyword%")->paginate(10);
-        // }
+        if ($filterKeyword) {
+            # code...
+            $bands = \App\Band::where('name', 'LIKE', "%$filterKeyword%")->paginate(10);
+        }
+
         return view('home', compact('bands'));
     }
 

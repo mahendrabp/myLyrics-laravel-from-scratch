@@ -21,28 +21,35 @@
 
                     <div class="form-group">
                         <label for="band" class="control-label">Band</label>
-                        <select name="band" id="select-2" class="form-control _band">
+                        <select name="band" id="select-2"
+                            class="form-control {{$errors->has('band') ? 'is-invalid' : ''}} _band">
                             <option disabled selected>Pilih band</option>
                             @foreach ($bands as $band)
                             <option value="{{$band->id}}">{{$band->name}}</option>
                             @endforeach
                         </select>
+                        {!! $errors->first('band','<span class="invalid-feedback">:message</span>') !!}
                     </div>
 
                     <div class="form-group">
                         <label for="album" class="control-label">Album</label>
-                        <select name="album" id="album" class="form-control select-2">
+                        <select name="album" id="album"
+                            class="form-control {{$errors->has('band') ? 'is-invalid' : ''}} select-2">
                             <option disabled selected>Pilih Album</option>
                             {{-- @foreach ($albums as $album)
                             <option value="{{$album->id}}">{{$album->name}}</option>
                             @endforeach --}}
                         </select>
+                        {!! $errors->first('album','<span class="invalid-feedback">:message</span>') !!}
+
                     </div>
 
 
                     <div class="form-group">
                         <label for="lyric">Lyric</label>
-                        <textarea class="form-control rounded-0" id="lyric" rows="10" name="lyric"></textarea>
+                        <textarea class="form-control {{$errors->has('band') ? 'is-invalid' : ''}} rounded-0" id="lyric"
+                            rows="10" name="lyric"></textarea>
+                        {!! $errors->first('lyric','<span class="invalid-feedback">:message</span>') !!}
                     </div>
 
 

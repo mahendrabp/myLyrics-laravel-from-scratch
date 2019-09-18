@@ -31,7 +31,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        $bands = Band::latest()->get();
+        $bands = Band::latest()->paginate(10);
         $albums = Album::latest()->get();
         return view('albums.create', compact('bands', 'albums'));
     }
@@ -46,6 +46,8 @@ class AlbumController extends Controller
     {
         request()->validate([
             'name' => 'required|min:2',
+            'band' => 'required',
+            'cover' => 'required'
 
         ]);
 
@@ -81,9 +83,11 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Album $album)
     {
-        //
+        $bands = Band::latest()->paginate(10);
+        $albums = Album::latest()->get();
+        return view('albums.edit', compact('album', 'bands'));
     }
 
     /**
@@ -96,18 +100,18 @@ class AlbumController extends Controller
     public function update(Album $album)
     {
 
-        if (request('cover')) {
-            if ($album->cover) {
-                Storage::delete($album->cover);
-            }
-            $cover = request()->file('cover')->store('cover');
-        } else {
-            $cover = $album->cover;
-        }
+        // if (request('cover')) {
+        //     if ($album->cover) {
+        //         Storage::delete($album->cover);
+        //     }
+        //     $cover = request()->file('cover')->store('cover');
+        // } else {
+        //     $cover = $album->cover;
+        // }
 
         request()->validate([
             'name' => 'required|min:2',
-            'cover' => 'required',
+
         ]);
 
 
@@ -115,7 +119,7 @@ class AlbumController extends Controller
         $album->update([
             'name' => \request('name'),
             'band_id' => request('band'),
-            'cover' => $cover
+
 
         ]);
 
@@ -126,7 +130,7 @@ class AlbumController extends Controller
         // }
         \session()->flash('success', 'your band was updated.');
 
-        return \back();
+        return redirect()->route('bands.show', $album->band);
     }
 
     public function get_all_albums($band_id)
@@ -141,8 +145,10 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
-        //
+        $album->songs()->delete();
+        $album->delete();
+        return redirect()->route('bands.show', $album->band);
     }
 }

@@ -18,8 +18,9 @@
 Auth::routes();
 
 Route::get('/ ', 'HomeController@index')->name('home');
-Route::get('/search', 'Song\SearchController@band');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/search', 'Song\SearchController@band')->name('searchs.show');
 
 
 Route::get('/genres/create', 'Song\GenreController@create')->name('genres.create');
@@ -41,7 +42,9 @@ Route::get('/albums/create', 'Song\AlbumController@create')->name('albums.create
 Route::post('/albums/store', 'Song\AlbumController@store')->name('albums.store');
 Route::get('/albums/{album}', 'Song\AlbumController@show')->name('albums.show');
 // Route::get('/bands/{album}/edit', 'Song\AlbumController@edit')->name('albums.edit');
+Route::get('/albums/{album}/edit', 'Song\AlbumController@edit')->name('albums.edit');
 Route::put('/albums/{album}/edit', 'Song\AlbumController@update')->name('albums.update');
+Route::delete('/albums/{album}/destroy', 'Song\AlbumController@destroy')->name('albums.destroy');
 Route::get('/albums/all/{band_id}', 'Song\AlbumController@get_all_albums');
 
 

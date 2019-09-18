@@ -19,24 +19,25 @@
 
 
 {{-- <input class="form-control mb-3" type="text" placeholder="Search" aria-label="Search any Bands"> --}}
-<div class="col-md-12">
-
-</div>
 <!-- Search form -->
-<form action="" method="GET">
-    <div class="col-md-12">
+<form action="{{route('searchs.show',$bands)}}" method="GET">
+    <div class="col-md-12 input-group">
         <input value="" name="keyword" class="form-control mb-3" type="text" placeholder="Masukan band untuk filter...">
-        <input type="submit" value="Filter" class="btn btn-primary">
+        {{-- <input type="submit" value="Filter" class="btn btn-primary"> --}}
+
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit" value="Filter">Filter</button>
+        </span>
     </div>
 </form>
 
 
-<div class="bg-white p-2">
+{{-- <div class="bg-white p-2">
     @foreach (range('A','Z') as $alphabet)
 
     <a href="{{route('filters.show',$alphabet)}}" class="mr-2">{{$alphabet}}</a>
-    @endforeach
-</div>
+@endforeach
+</div> --}}
 <div class="row">
     @if ($bands->count())
     @foreach ($bands as $band)
@@ -65,6 +66,9 @@
 
 
 
+</div>
+<div class="d-flex justify-content-center">
+    {{$bands->links()}}
 </div>
 
 

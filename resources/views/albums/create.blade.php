@@ -12,12 +12,14 @@
 
                 <form action="{{route('albums.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('albums.partials.form',['album' => new App\Album])
-
+                    @include('albums.partials.form',[
+                    'album' => new App\Album,
+                    'submit' => 'Create'
+                    ])
                 </form>
             </div>
 
-            @if ($albums->count())
+            {{-- @if ($albums->count())
             <div class="card card-body">
                 <h3 class="card-title">All Albums</h3>
                 <table class="table">
@@ -37,23 +39,20 @@
                     @foreach ($albums as $album)
                     <tr>
                         <td>{{$no}}</td>
-                        <td>{{$album->name}}</td>
-                        <td>{{$album->band->name}}</td>
-
-                        <td>@include('albums.delete')</td>
-                    </tr>
-                    @php
-                    $no++;
-                    @endphp
-                    @endforeach
-
-
-                    </tbody>
-                </table>
-            </div>
-            @endif
-
+            <td>{{$album->name}}</td>
+            <td>{{$album->band->name}}</td>
+            <td>@include('albums.delete')</td>
+            </tr>
+            @php
+            $no++;
+            @endphp
+            @endforeach
+            </tbody>
+            </table>
         </div>
+        @endif --}}
+
     </div>
+</div>
 </div>
 @endsection

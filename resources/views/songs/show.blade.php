@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title',"{$song->title} - {$song->band->name}")
 @section('content')
 <div class="container">
     <div class="row justify-content-center mb-3">
