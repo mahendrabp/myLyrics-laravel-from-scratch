@@ -18,10 +18,15 @@
 Auth::routes();
 
 Route::get('/ ', 'HomeController@index')->name('home');
+Route::get('/search', 'Song\SearchController@band');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
+
 Route::get('/genres/create', 'Song\GenreController@create')->name('genres.create');
+Route::get('/filters/{alphabet}', 'Song\FilterController@show')->name('filters.show');
 Route::post('/genres/store', 'Song\GenreController@store')->name('genres.store');
+Route::get('/genres/{genre}', 'Song\GenreController@show')->name('genres.show');
+
 
 Route::get('/bands', 'Song\BandController@index')->name('bands.index');
 Route::get('/bands/create', 'Song\BandController@create')->name('bands.create');
@@ -29,6 +34,7 @@ Route::post('/bands/store', 'Song\BandController@store')->name('bands.store');
 Route::get('/bands/{band}', 'Song\BandController@show')->name('bands.show');
 Route::get('/bands/{band}/edit', 'Song\BandController@edit')->name('bands.edit');
 Route::put('/bands/{band}/edit', 'Song\BandController@update')->name('bands.update');
+
 
 Route::get('/albums', 'Song\AlbumController@index')->name('albums.index');
 Route::get('/albums/create', 'Song\AlbumController@create')->name('albums.create');

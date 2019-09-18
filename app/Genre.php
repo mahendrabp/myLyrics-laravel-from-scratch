@@ -9,6 +9,10 @@ class Genre extends Model
 {
     use Sluggable;
     protected $fillable = ['name', 'slug'];
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function bands()
     {

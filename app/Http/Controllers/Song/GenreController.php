@@ -30,4 +30,10 @@ class GenreController extends Controller
         Genre::create($attributes);
         return \back();
     }
+
+    public function show(Genre $genre)
+    {
+        $bands = $genre->bands;
+        return view('home', compact('bands'));
+    }
 }

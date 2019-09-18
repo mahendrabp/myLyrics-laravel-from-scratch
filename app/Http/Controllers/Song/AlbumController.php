@@ -108,8 +108,6 @@ class AlbumController extends Controller
         request()->validate([
             'name' => 'required|min:2',
             'cover' => 'required',
-
-
         ]);
 
 
