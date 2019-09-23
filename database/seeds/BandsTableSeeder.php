@@ -165,7 +165,7 @@ class BandsTableSeeder extends Seeder
                 'updated_at'      => \Carbon\Carbon::now()
             ],
             [
-                'id' => 19,
+                'id' => 20,
                 'poster' => 'poster/ynn.jpg',
                 'name' => 'Yovie & Nuno',
                 'slug' => 'ynn',
